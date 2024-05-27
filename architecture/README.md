@@ -10,3 +10,16 @@ Kubernetes is a portable, extensible, open source platform for managing containe
 
 ![Kiến trúc k8s](https://www.aquasec.com/wp-content/uploads/2020/11/Kubernetes-101-Architecture-Diagram.jpg)
 _<center>High level Kubernetes architecture diagram showing a cluster with a master and two worker nodes</center>_
+
+## Kubernetes cung cấp:
+
+- Service discovery and load balancing
+- Storage orchestration
+- Automated rollouts and rollbacks
+- Automatic bin packing
+- Self-healing
+- Secret and configuration management
+- Batch execution
+- Horizontal scaling
+- IPv4/IPv6 dual-stack
+- Designed for extensibility 
