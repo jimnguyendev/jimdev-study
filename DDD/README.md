@@ -161,9 +161,47 @@ Xây dựng Meetup.com system (Meeting Groups domain).
 
 **Users**
 
-- Mỗi `Administrator`, `Member` and `Payer` đều là `User`.  Để trở thành `User`, cần `User Registration` và được xác nhận.
-- Mỗi `User` được gán một hoặc nhiều `User Role`. 
+- Mỗi `Administrator`, `Member` and `Payer` đều là `User`. Để trở thành `User`, cần `User Registration` và được xác nhận.
+- Mỗi `User` được gán một hoặc nhiều `User Role`.
 - Mỗi `User Role` có một tập hợp các `Permissions`. `Permissions` xác định liệu `User` dùng có thể thực hiện một hành động cụ thể hay không.
+
+### Conceptual Model
+
+
+Mô hình khái niệm (Conceptual Model) là một biểu diễn trừu tượng của một hệ thống, quá trình hoặc hiện tượng nào đó. Nó được xây dựng bằng cách sử dụng các khái niệm và mối quan hệ giữa chúng để mô tả cấu trúc, chức năng và hành vi của đối tượng được mô hình hóa.
+
+![Domain-Driven Hexagon](./assets/Conceptual_Model.png)
+
+**Conceptual Model of commenting feature**
+
+![Domain-Driven Hexagon](./assets/commeting_feature.png)
+
+# Event Storming
+
+![Domain-Driven Hexagon](./assets/event_storming.jpeg)
+
+While a **Conceptual Model** focuses on structures and relationships between them, `behavior` and `events` that occur in our domain are more important.
+
+Event Storming is a light, live workshop. One of the possible outputs of this workshop is presented here. Even if you are not doing Event Storming workshops, this type of process presentation can be very valuable to you and your stakeholders.
+
+**User Registration process**
+
+![Domain-Driven Hexagon](./assets/User_Registration.jpg)
+
+**Meeting Group creation**
+
+![Domain-Driven Hexagon](./assets/Meeting_Group_Creation.jpg)
+
+**Meeting organization**
+
+![Domain-Driven Hexagon](./assets/Meeting_Organization.jpg)
+
+**Payments**
+
+![Domain-Driven Hexagon](./assets/Payments_EventStorming_Design_HighRes.jpg)
+
+# Architecture
+
 
 # Diagram
 
