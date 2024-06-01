@@ -5,6 +5,7 @@
 - [Domain-Driven Hexagon](#domain-driven-hexagon)
 - [Architecture](#architecture) - [Pros](#pros) - [Cons](#cons)
 - [Diagram](#diagram)
+- [OOP && SOLID](#oop)
 - [Modules](#modules)
 - [Application Core](#application-core)
 - [Application layer](#application-layer)
@@ -167,7 +168,6 @@ Xây dựng Meetup.com system (Meeting Groups domain).
 
 ### Conceptual Model
 
-
 Mô hình khái niệm (Conceptual Model) là một biểu diễn trừu tượng của một hệ thống, quá trình hoặc hiện tượng nào đó. Nó được xây dựng bằng cách sử dụng các khái niệm và mối quan hệ giữa chúng để mô tả cấu trúc, chức năng và hành vi của đối tượng được mô hình hóa.
 
 ![Domain-Driven Hexagon](./assets/Conceptual_Model.png)
@@ -200,30 +200,475 @@ Event Storming is a light, live workshop. One of the possible outputs of this wo
 
 ![Domain-Driven Hexagon](./assets/Payments_EventStorming_Design_HighRes.jpg)
 
-# Architecture
-
-
 # Diagram
 
 ![Domain-Driven Hexagon](./assets/DomainDrivenHexagon.png)
-<sup>Diagram is mostly based on [this one](https://github.com/hgraca/explicit-architecture-php#explicit-architecture-1) + others found online</sup>
 
 In short, data flow looks like this (from left to right):
 
 - Request/CLI command/event is sent to the controller using plain DTO;
 - Controller parses this DTO, maps it to a Command/Query object format and passes it to an Application service;
 - Application service handles this Command/Query; it executes business logic using domain services and entities/aggregates and uses the infrastructure layer through ports(interfaces);
-- Infrastructure layer maps data to a format that it needs, retrieves/persists data from/to a database, uses adapters for other I/O communications (like sending an event to an external broker or calling external APIs), maps data back to domain format and returns it back to Application service;
+- Infrastructure layer maps data to a format that it needs, **retrieves/persists(truy xuất/lưu trữ dữ)** data from/to a database, uses adapters for other I/O communications (like sending an event to an external broker or calling external APIs), maps data back to domain format and returns it back to Application service;
 - After the Application service finishes doing its job, it returns data/confirmation back to Controllers;
 - Controllers return data back to the user (if application has presenters/views, those are returned instead).
 
-Each layer is in charge of its own logic and has building blocks that usually should follow a [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) when possible and when it makes sense (for example, using `Repositories` only for database access, using `Entities` for business logic, etc.).
+Each layer is in charge of its own logic and has building blocks that usually should follow a [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) when possible(khả thi) and when it makes sense (for example, using `Repositories` only for database access, using `Entities` for business logic, etc.).
 
-**Keep in mind** that different projects can have more or less steps/layers/building blocks than described here. Add more if the application requires it, and skip some if the application is not that complex and doesn't need all that abstraction.
+**Keep in mind** that different projects can have more or less steps/layers/building blocks than described(mô tả) here. Add more if the application requires it, and skip some if the application is not that complex and doesn't need all that abstraction.
 
-General recommendation for any project: analyze how big/complex the application will be, find a compromise and use as many layers/building blocks as needed for the project and skip ones that may over-complicate things.
+General recommendation for any project: analyze how big/complex the application will be, find a compromise(dung hoà) and use as many layers/building blocks as needed for the project and skip ones that may over-complicate things.
 
 More in details on each step below.
+
+[Laravel CQRS + Event Bus](https://www.youtube.com/watch?v=xAe9phcrc4A&t=314s)
+
+# OOP && SOLID
+
+### OOP
+
+We use programming to solve real-world problems, and it won't make much sense if one can't model real-world scenarios using programming laguages. This is where object-oriented programming comes into play.
+
+**Definition**
+
+Object-oriented programming (OOP) is a `programming paradigm` based on the concept of "`object`", which can contain `data` and `code`. The data is in the form of `fields` (often known as `attributes` or properties), and the code is in the form of procedures (often known as `methods`).
+
+**Building blocks**
+
+![Building blocks](./assets/bb_oop.png)
+
+![Building blocks](./assets/bp_2.png)
+
+![Building blocks](./assets/bp_3.png)
+
+### Four main principle
+
+**Abstraction**
+
+`Data Abstraction` is a design pattern in which data are visible only to semantically related functions, so as to prevent misuse...
+
+`Abstraction` is a technique used in object-oriented programming that simplifies the program's structure. It focuses only on revealing the necessary details of a system and hiding irrelevant information to minimize its complexity.
+
+- Đơn giản hóa sự phức tạp bằng cách ẩn đi các chi tiết không cần thiết và chỉ tập trung vào các khái niệm và tính năng cần thiết của một đối tượng.
+- **Tập trung vào:** Giao diện của đối tượng và những gì đối tượng có thể làm.
+- **Cách thực hiện:**
+  - Sử dụng các lớp trừu tượng (abstract class) và interface để định nghĩa các hành vi chung mà các lớp con phải thực hiện.
+  - Ẩn đi các chi tiết triển khai cụ thể của các phương thức.
+- **Từ khóa liên quan:** abstract, interface
+
+![Building blocks](./assets/en_vs_ab.png)
+
+```java
+// Encapsulation
+public class Car {
+    private String model;
+    private int year;
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    // ...
+}
+
+// Abstraction
+interface Vehicle {
+    void start();
+    void stop();
+}
+
+class Car implements Vehicle {
+    // ...
+}
+```
+
+**Encapsulation**
+
+`Encapsulation` prevents external code from being concrened with the internal working of an object...
+
+`Encapsulation` is a fundamental programming technique used to achieve data hiding in OOP. Encapsulation in OOP refers to binding data and the methods to manipulate that data together in a single unit-class.
+
+- **Encapsulation** là việc đóng gói dữ liệu (thuộc tính) và các phương thức thao tác trên dữ liệu đó vào trong một đơn vị duy nhất, thường là một lớp (class). Mục tiêu của `encapsulation` là che giấu thông tin chi tiết về cách thức hoạt động bên trong của đối tượng, chỉ để lộ ra ngoài những gì cần thiết thông qua một giao diện được xác định rõ ràng.
+- **Tập trung vào:** Cách thức dữ liệu được tổ chức và bảo vệ.
+
+![Building blocks](./assets/oop_abs_en.png)
+
+```
+Advantages off Abstraction & Encapsulation
+
+- It helps  classes simpler to modify and maintain.
+- It reduces the complexity of the system from a user's prespective.
+- It makes the code extendable and reusable
+```
+
+**Inheritance**
+
+`Inheritance` provides a way to create a new class from an existing class. The existing class is used as as starting point or base to create the new class.
+
+![Building blocks](./assets/inheritance.png)
+
+![Building blocks](./assets/relationship.png)
+
+Kế thừa hay Inheritance là một trong những đặc trưng lớn của Lập trình hướng đối tượng (OOP). Mục tiêu quan trọng của nó, đó là tái sử dụng code: Thay vì phải copy lại mã khắp mọi nơi, bạn đưa nó lên class cha, và có thể tái sử dụng nó ở các class con.
+Tuy nhiên, kế thừa đem lại rất nhiều rủi ro:
+
+1. Khi hệ thống phình to, cơ chế kế thừa tái sử dụng code có thể tạo thành nhiều luồng kế thừa song song. Kiểu với nghiệp vụ A, bạn có BaseClass A, và một loạt các class kế thừa BaseClass A. Kiểu nghiệp vụ B, bạn có BaseClass B, và tiếp tục có các class con kế thừa nó. Dần dần, bạn sẽ rất khó kiểm soát ứng dụng của mình.
+2. Bạn phải triển khai lại mọi phương thức trừu tượng của class cha nếu có. Đôi khi class của bạn không nhất thiết phải triển khai toàn bộ các phương thức này.
+3. Rủi ro vi phạm nguyên tắc thay thế Liskov: Class con có thể có những hành vi xung đột với class cha, gây rủi ro lớn cho ứng dụng của bạn. Ngược lại, mọi thay đổi từ class cha cũng có rủi ro gây lỗi tới các class con kế thừa nó.
+   Trên thực tế, bạn nên hết sức thận trọng khi sử dụng kế thừa. Trừ khi bạn làm Open Source, mình nghĩ nên tích cực sử dụng Final trong class của bạn. Minh chứng tiêu biểu là với Kotlin: Ở chế độ mặc định, mọi class đều là final (chặn kết thừa). Bạn buộc phải khai báo keyword open để cho phép kế thừa từ class đó.
+   Đương nhiên Dependency Injection là một cách triển khai thú vị để giải quyết các vấn đề của Inheritance. Cuốn "OOP cho người đi làm" của mình sẽ phân tích các vấn đề này trên quan điểm thực tế làm việc, giúp các bạn tiếp cận nhanh nhất để giải bài toán thực tế
+
+**Polymorphism**
+
+The word polymorphism is derived from Greek and means "having multiple forms." Apart from computer programming, the idea of polymorphism occurs in other real-world areas, including biology, chemistry and drug development. Polymorphism is one of the most important concepts in OOP.
+
+It describes the ability of something to have or to be displayed in more than one form. The different forms arise because these entities can be assigned different meanings and used in various ways in multiple contexts.
+
+**Polymorphism** cho phép một đối tượng có thể thực hiện một hành động theo nhiều cách khác nhau, tùy thuộc vào ngữ cảnh hoặc loại đối tượng cụ thể. Nói cách khác, cùng một tên phương thức có thể được sử dụng cho các lớp khác nhau, và mỗi lớp sẽ có cách triển khai riêng của mình.
+
+![Building blocks](./assets/poly.png)
+
+> PHP ko có overload
+
+![Building blocks](./assets/oop.png)
+
+### SOLID
+
+[SOLID](https://okso.app/showcase/solid)
+
+#### Single responsibility principle (srp)
+
+![Building blocks](./assets/S_1.png)
+
+![Building blocks](./assets/S_2.png)
+
+**Open closed principle**
+
+![Building blocks](./assets/O_1.png)
+
+#### Liskov Substitution Principle
+
+![Building blocks](./assets/L-1.png)
+
+Nguyên tắc này phát biểu rằng các đối tượng của một lớp con phải có thể thay thế cho các đối tượng của lớp cha mà không làm thay đổi tính đúng đắn của chương trình. Nói cách khác, nếu một chương trình hoạt động đúng với một đối tượng của lớp cha, thì nó cũng phải hoạt động đúng khi đối tượng đó được thay thế bằng một đối tượng của lớp con.
+
+**Lợi ích**
+
+- **Tăng tính linh hoạt**: Mã nguồn dễ dàng mở rộng và thay đổi trong tương lai.
+  **Tăng tính tái sử dụng**: Các lớp con có thể được sử dụng thay thế cho lớp cha mà không cần sửa đổi mã nguồn.
+  **Tránh các lỗi bất ngờ**: Giúp phát hiện sớm các lỗi liên quan đến kế thừa và đảm bảo tính đúng đắn của chương trình
+
+ƯU điểm: Giúp phát hiện sớm các lỗi liên quan đến kế thừa và đảm bảo tính đúng đắn của chương trình.
+
+#### Interface segregation principle
+
+![Building blocks](./assets/I_1.png)
+
+Nguyên tắc này khuyến khích việc chia nhỏ các giao diện lớn thành nhiều giao diện nhỏ hơn, mỗi giao diện chỉ chứa các phương thức liên quan đến một chức năng cụ thể. Điều này giúp tránh trường hợp các lớp (class) phải thực hiện các phương thức không cần thiết, từ đó làm giảm sự phụ thuộc giữa các lớp và tăng tính linh hoạt của hệ thống.
+
+**Lợi ích:**
+
+- **Giảm sự phụ thuộc giữa các lớp**: Các lớp chỉ cần thực hiện các giao diện mà chúng thực sự cần, giảm sự phụ thuộc vào các phương thức không liên quan.
+- **Tăng tính linh hoạt**: Dễ dàng thay đổi hoặc mở rộng hệ thống mà không ảnh hưởng đến các phần khác.
+- **Dễ đọc và bảo trì**: Mã nguồn trở nên rõ ràng và dễ hiểu hơ
+
+#### Dependency Inversion Principle (DIP)
+
+1. **Các module cấp cao** không nên phụ thuộc vào các module cấp thấp. Cả hai nên phụ thuộc vào abstraction (sự trừu tượng).
+2. **Interface** không nên phụ thuộc vào `concrete implementations`, mà ngược lại.
+
+**Lợi ích:**
+
+- **Giảm sự phụ thuộc giữa các module:** Khi các module cấp cao phụ thuộc vào abstraction, chúng không bị ảnh hưởng bởi sự thay đổi trong cách triển khai của các module cấp thấp.
+- **Tăng tính linh hoạt:** Dễ dàng thay thế các module cấp thấp bằng các triển khai khác nhau mà không cần sửa đổi mã nguồn của các module cấp cao.
+- **Dễ dàng kiểm thử:** Các module cấp cao có thể được kiểm thử độc lập với các module cấp thấp bằng cách sử dụng các mock object hoặc stub object.
+
+### Tip
+
+#### Refactor method 400 dòng
+
+1. SỬ DỤNG GENERIC NAME
+   Tên method: create - nếu đây là method base cho toàn bộ hệ thống thì mình không có ý kiến, nhưng nếu đây là method đang tạo một cái gì đó rất cụ thể, ví dụ như: tạo đơn hàng, tạo khách hàng... ngay cả khi tên class là tên của đối tượng thì một cái tên ổn hơn có thể sử dụng như: createOrder, createCustomer. Rõ nghĩa hơn nhiều, tìm kiếm reference trong code cũng dễ, đọc tường minh hơn.
+
+2. TẠI SAO METHOD NÀY DÀI 400 DÒNG?
+   Không hẳn lý do method này dài vì lý do syntax như một số bạn nêu các bạn nêu, kiểu không sử dụng arrow function, inline conditional... Lý do chính ở đây là tất cả các logic đang được "làm phẳng" trải hết ở trong method này, một kỹ thuật mình hay hướng dẫn anh em giải quyết là sử dụng private method để bao đóng các logic bên trong method đó, ngoài việc giảm tải lượng body code mà private method còn giúp mình rất tốt trong việc label được logic, ví dụ: hiện tại method body đang chứa 15 dòng code rời rạc để xử lý vấn để gửi notification thì bạn cho 15 dòng code đó vào một private method là sendNotification() vậy là 15 dòng code đã giảm xuống chỉ còn 1 dòng trong method body. Nếu vấn đề này bạn có quyền hạn sử dụng kỹ thuật cao hơn ở level architect thì sử dụng hướng tiếp cận Event Driven Architecture hoặc đơn giản hơn bạn có thể sử dụng Hook Method kiểu before - after... cũng hiệu quả trong việc chia logic, trách việc code tập trung trải phẳng trong một method rất lớn, rất đáng sợ để đọc nó.
+
+#### Command bus
+
+- Show được ra các usecase của dự án (nhìn vào biết hệ thống đang cung cấp các chức năng gì)
+- Khă năng tái sử dụng cao (ko bị duplicate logic giữa http request, api, console command...)
+- Khẳ năng mở rộng cao (Có thể thêm các middleware ở giữa command và handler xử lý các bài toán về transaction, logging...)
+- Dễ viết test hơn (tập trung vào unit test cho handler)
+- Show được ra các usecase: Command bus đang được sử dụng cho Service Layer, tại đây như một bộ real documment về các use case thực tế của dự án.
+- Khả năng tái sử dụng cao: Một ứng dụng không chỉ có 1 entry interface duy nhất . Các nghiệp vụ cần tái sử dụng cho các interface khác nhau sẽ move vào bên trong Service Layer từ đó mọi entry (http, console...) đều chịu ảnh hưởng của các logic đó.
+- Khả năng mở rộng cao: Build các concept tổng thể cho các service nhờ middleware mà command bus mang lại.
+- Dễ viết test hơn: Mỗi command đại diện cho một use case duy nhất vì thế sẽ dễ dàng cô lập được dependencies của Service.
+
+### Coding chill
+
+![Class diagram leader](./assets/OOP_leader.png)
+
+> Code demo sai thinking về OOP
+
+```typescript
+abstract class User {
+  firstName: string;
+  lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  abstract getMoney(): number;
+}
+
+class Lender extends User {
+  money: number;
+  borrower?: Borrower;
+  lendAmount: number = 0;
+
+  constructor(firstName: string, lastName: string, money: number) {
+    super(firstName, lastName);
+    this.money = money;
+  }
+
+  getMoney(): number {
+    return this.money;
+  }
+
+  lend(br: Borrower, amount: number): boolean {
+    if (this.borrower != null || this.money < amount) return false;
+
+    this.borrower = br;
+    this.lendAmount = amount;
+    this.money -= amount;
+
+    return true;
+  }
+
+  getMoneyBack(): boolean {
+    if (this.borrower != null && !this.borrower.returnMoney(this.lendAmount))
+      return false;
+
+    this.money += this.lendAmount;
+    this.lendAmount = 0;
+    this.borrower = undefined;
+
+    return true;
+  }
+}
+
+class Borrower extends User {
+  cash: number;
+  lender?: Lender;
+
+  constructor(firstName: string, lastName: string, cash: number) {
+    super(firstName, lastName);
+    this.cash = cash;
+  }
+
+  getMoney(): number {
+    return this.cash;
+  }
+
+  borrow(lender: Lender, amount: number): boolean {
+    if (this.lender != null || !lender.lend(this, amount)) {
+      return false;
+    }
+
+    this.lender = lender;
+    this.cash += amount;
+
+    return true;
+  }
+
+  returnMoney(amount: number): boolean {
+    if (this.lender == null || this.cash < amount) return false;
+
+    this.cash -= amount;
+    this.lender = undefined;
+
+    return true;
+  }
+}
+
+let johny = new Borrower("Johny", "Poor", 50);
+let peter = new Lender("Peter", "Rich", 3000);
+
+// Johny wants to lend some money from Peter
+// peter.money -= 1000
+// johny.cash += 1000
+
+// Johny wants to lend some money from Peter
+console.log(johny.getMoney(), peter.getMoney());
+johny.borrow(peter, 1000);
+console.log(johny.getMoney(), peter.getMoney());
+peter.getMoneyBack();
+console.log(johny.getMoney(), peter.getMoney());
+```
+
+> Vấn đề thiết kế trên Leader đang biết chính xác Borrower của nó là ai và ngược lại Borrower cũng thế => không nên lạm dụng extend. Cùng xem thiết kế bên dưới giải quyết vấn đề trên.
+
+![Leader V2](./assets/OOP_V2.png)
+
+```typescript
+abstract class User {
+  firstName: string;
+  lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  abstract getMoney(): number;
+}
+
+interface LenderBehavior {
+  lend(br: BorrowerBehavior, amount: number): boolean;
+  getMoneyBack(): boolean;
+  getMoney(): number;
+}
+
+interface BorrowerBehavior {
+  borrow(lender: LenderBehavior, amount: number): boolean;
+  returnMoney(amount: number): boolean;
+  getMoney(): number;
+}
+
+class Lender extends User implements LenderBehavior {
+  money: number;
+  borrower?: BorrowerBehavior;
+  lendAmount: number = 0;
+
+  constructor(firstName: string, lastName: string, money: number) {
+    super(firstName, lastName);
+    this.money = money;
+  }
+
+  getMoney(): number {
+    return this.money;
+  }
+
+  lend(br: BorrowerBehavior, amount: number): boolean {
+    if (this.borrower != null || this.money < amount) return false;
+
+    this.borrower = br;
+    this.lendAmount = amount;
+    this.money -= amount;
+
+    return true;
+  }
+
+  getMoneyBack(): boolean {
+    if (this.borrower != null && !this.borrower.returnMoney(this.lendAmount))
+      return false;
+
+    this.money += this.lendAmount;
+    this.lendAmount = 0;
+    this.borrower = undefined;
+
+    return true;
+  }
+}
+
+class Borrower extends User implements BorrowerBehavior {
+  cash: number;
+  lender?: LenderBehavior;
+
+  static GetBorrower(
+    firstName: string,
+    lastName: string,
+    cash: number
+  ): BorrowerBehavior {
+    return new Borrower(firstName, lastName, cash);
+  }
+
+  private constructor(firstName: string, lastName: string, cash: number) {
+    super(firstName, lastName);
+    this.cash = cash;
+  }
+
+  getMoney(): number {
+    return this.cash;
+  }
+
+  borrow(lender: LenderBehavior, amount: number): boolean {
+    if (this.lender != null || !lender.lend(this, amount)) {
+      return false;
+    }
+
+    this.lender = lender;
+    this.cash += amount;
+
+    return true;
+  }
+
+  returnMoney(amount: number): boolean {
+    if (this.lender == null || this.cash < amount) return false;
+
+    this.cash -= amount;
+    this.lender = undefined;
+
+    return true;
+  }
+}
+
+let johny = Borrower.GetBorrower("Johny", "Poor", 50);
+let peter = new Lender("Peter", "Rich", 3000);
+
+// Johny wants to lend some money from Peter
+// peter.money -= 1000
+// johny.cash += 1000
+
+// Johny wants to lend some money from Peter
+console.log(johny.getMoney(), peter.getMoney());
+main(johny, peter, 1000);
+
+function main(br: BorrowerBehavior, ld: LenderBehavior, amount: number) {
+  br.borrow(ld, amount);
+  ld.getMoneyBack();
+}
+```
+
+# Decoupling (Tách rời) vs. Loose Coupling (Liên kết lỏng lẻo)
+
+Trong thiết kế phần mềm, Decoupling và Loose Coupling là hai khái niệm quan trọng giúp tăng tính linh hoạt và khả năng bảo trì của hệ thống. Tuy nhiên, chúng có sự khác biệt về mức độ và ý nghĩa.
+
+## Loose Coupling (Liên kết lỏng lẻo)
+
+- **Định nghĩa:** Hai hoặc nhiều thành phần trong hệ thống có sự phụ thuộc lẫn nhau ở mức tối thiểu. Chúng có thể tương tác, nhưng sự thay đổi trong một thành phần ít ảnh hưởng đến các thành phần khác.
+- **Đặc điểm:**
+  - Giao tiếp thông qua các giao diện (interface) được xác định rõ ràng.
+  - Các thành phần có thể được thay thế hoặc sửa đổi độc lập.
+  - Giảm thiểu sự phụ thuộc trực tiếp giữa các thành phần.
+- **Lợi ích:**
+  - Tăng tính linh hoạt và khả năng bảo trì.
+  - Dễ dàng kiểm thử và gỡ lỗi.
+  - Giảm thiểu rủi ro khi thay đổi một thành phần.
+
+**Ví dụ:** Trong kiến trúc microservices, các dịch vụ được thiết kế để liên kết lỏng lẻo, giao tiếp qua API.
+
+## Decoupling (Tách rời)
+
+- **Định nghĩa:** Một hình thức cực đoan của loose coupling, trong đó các thành phần hoàn toàn độc lập với nhau. Chúng không có bất kỳ sự phụ thuộc trực tiếp nào và có thể hoạt động một cách cô lập.
+
+- Đặc điểm:
+  - Giao tiếp hoàn toàn thông qua các cơ chế gián tiếp (message queue, event bus, database).
+  - Các thành phần có thể được triển khai, mở rộng và bảo trì độc lập.
+- Lợi ích
+  - Cung cấp mức độ linh hoạt và khả năng mở rộng cao nhất.
+  - Cho phép các thành phần được phát triển và triển khai bởi các nhóm khác nhau.
+  - Giảm thiểu rủi ro và ảnh hưởng của lỗi trong một thành phần đến các thành phần khác.
+
+**Ví dụ:** Trong kiến trúc event-driven, các thành phần giao tiếp bằng cách gửi và nhận các sự kiện (event).
+
+![Loose Coupling vs Decoupling](./assets/l_vs_dep.png)
 
 # Modules
 
