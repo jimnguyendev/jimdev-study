@@ -74,6 +74,7 @@
 - Hệ thống cũ luôn luôn sinh ra bug.
 - Không thể kiểm xoát được hệ thống (không ai biết được), chỉ đợi sinh ra problem để sửa.
 - Kế thừa hệ thống cũ -> không hiểu hệ thống vì logic không tập trung, không thể sửa đổi được.
+- Hỗn loạn, các team cầm quả bóng đẩy vấn đề đi chỗ khác, bên khác cũng không nắm được vấn đề,...
 
 ### 1.2 Các yêu cầu đặt ra
 
