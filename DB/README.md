@@ -203,5 +203,29 @@ where first_name = "John"
 
 ![DB](./assets/arrs/13.png)
 
-## Storage Engine trong mysql
+## Char vs Varchar
 
+**Char**
+
+- Fix dữ liệu, truy cập nhanh hơn do do độ dài là cố định
+
+**Lưu ý**: trong trường hợp column có kiểu dữ liệu là char sẽ sử dụng `ascii` sẽ tối ưu hơn UTF8 vì một ký tự của `ascii` sẽ chiếm 1 byte thay vì 1 - 4 byte của UTF8 (UTF8 có thể biểu diễn tất cả các ký tự Unicode của hầu hết các ngôn ngữ trên thế giới)
+
+**Varchar**
+
+- **Lưu trữ:** VARCHAR lưu trữ chuỗi có độ dài thay đổi. Nó chỉ sử dụng lượng không gian cần thiết để lưu trữ chuỗi, cộng thêm một hoặc hai byte để lưu trữ thông tin về độ dài.
+- **Hiệu suất:** VARCHAR có thể chậm hơn CHAR trong một số trường hợp vì cần thêm thời gian để tính toán độ dài của chuỗi.
+
+#### utf8mb4_unicode_ci vs utf8mb4_bin
+
+**utf8mb4_unicode_ci**
+
+- Không phân biệt chữ hoa và chữ thường khi so sánh. Ví dụ: "A" sẽ được coi là bằng "a".
+- Không phân biệt dấu phụ (accent) khi so sánh. Ví dụ: "é" sẽ được coi là bằng "e".
+- Áp dụng các quy tắc so sánh của Unicode để xử lý các ký tự đặc biệt và các ngôn ngữ khác nhau
+
+**utf8mb4_bin**
+
+- Phân biệt chữ hoa và chữ thường khi so sánh. Ví dụ: "A" sẽ không được coi là bằng "a".
+- Phân biệt dấu phụ (accent) khi so sánh. Ví dụ: "é" sẽ không được coi là bằng "e".
+- So sánh các chuỗi ký tự dựa trên giá trị nhị phân của chúng.

@@ -163,3 +163,26 @@ Khi Redis đột ngột sập trong quá trình tính toán stock của đơn h�
 - **Sử dụng cơ chế lưu trữ dữ liệu bền vững:** Kích hoạt AOF (Append Only File) hoặc RDB (Redis Database) persistence để đảm bảo dữ liệu không bị mất khi Redis khởi động lại.
 - **Giám sát chặt chẽ:** Sử dụng các công cụ giám sát để theo dõi hoạt động của Redis và phát hiện sớm các dấu hiệu bất thường.
 - **Xây dựng kịch bản xử lý sự cố:** Chuẩn bị sẵn các kịch bản xử lý sự cố Redis để có thể phản ứng nhanh chóng và hiệu quả khi sự cố xảy ra.
+
+### Redis
+
+- Là một cơ sở liệu key - value in memory, được sử dụng rộng rãi theo nhiều hướng.
+
+-> Mục đích: đảm bảo hiệu xuất cao và tính ổn định của hệ thống
+
+#### String
+
+Lưu trữ tối đa 512M -> triển khai SDS
+
+- embstring (<= 44 bytes)
+- raw (> 44 bytes)
+- int (integer)
+
+#### Hash (thuật toán hash table)
+
+Redis Hashes là một kiểu dữ liệu trong Redis cho phép lưu trữ nhiều cặp trường (field) và giá trị (value) trong một key duy nhất. Nó hoạt động tương tự như một từ điển (dictionary) hoặc một bảng băm (hash table) trong các ngôn ngữ lập trình khác
+
+
+#### List (link list)
+
+
