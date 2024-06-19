@@ -23,3 +23,13 @@ _<center>High level Kubernetes architecture diagram showing a cluster with a mas
 - Horizontal scaling
 - IPv4/IPv6 dual-stack
 - Designed for extensibility 
+
+### Chu thich
+
+- Ve mat ly thuyet co de deploy len ca master node (ko lam the)
+- ETCD la csdl dang key - value, luu tru tat ca thong tin trang thai cua ung dung
+- Kubelet chi lam nhiem bu deploy chi thi tu api-sever, gui cac ban report trang thai cua dich vu voi api-server
+- Kuproxy quan ly giao tiep giua cac pod trong worker node
+
+![K8s](./assets/1.png)
+  
