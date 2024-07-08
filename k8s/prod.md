@@ -40,3 +40,4 @@ k logs app1 -c app1
 ```
 k exec -it app1 -- ls
 ```
+
