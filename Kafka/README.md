@@ -101,3 +101,20 @@ retries > 0
 - Marshaling: thường đề cập đến giao tiếp thay vì lưu trữ (RPC)
 
 [Serialization docs](https://docs.google.com/presentation/d/1T2sgz-ROXhPVGgimlkFTStYRTGii4v_bCWslg5LFlls/edit#slide=id.g2c7830e68fb_0_0)
+
+
+### Demo
+
+[Fraud Detection System
+](https://docs.google.com/presentation/d/1fn5PsAc4ZuOjnM4eoNQQhWf9NOKhN7K9v_zMLT_jg78/edit#slide=id.g2c8a8ddc061_0_0)
+
+### Group Membership & Partition Assignment
+
+[docs](https://docs.google.com/presentation/d/1jeP_HmVas5-CrU5D7K3Ac6Orsm7x0ae-ZREM4xGZIK0/edit#slide=id.g2c3c50e36fa_0_1)
+
+### Liveness
+
+- liveness: đảm bảo hệ thống hoạt động xuôn sẻ
+- Safety: đảm bảo ko có vấn đề ảnh hưởng xấu đến hệ thống
+
+[docs](https://docs.google.com/presentation/d/1_iZMhTvUIgrkNAJCE0PgAwOdkHfR0Q_HWk6KlkWYmz0/edit)
