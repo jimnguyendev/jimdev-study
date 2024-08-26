@@ -1,5 +1,7 @@
 # Redis
 
+## Tại sao cache lại khó
+
 ## REDIS và 3 sự cố phổ biến khi sử dụng
 
 ### Cache avalanche

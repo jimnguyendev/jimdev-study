@@ -1,11 +1,33 @@
 # Domain-Driven Design
 
+- [Domain-Driven Design](#domain-driven-design)
 - [Introduction](#introduction)
+    - [1.1 Trải nhiệm \&\& nỗi đau](#11-trải-nhiệm--nỗi-đau)
+    - [1.2 Các yêu cầu đặt ra](#12-các-yêu-cầu-đặt-ra)
+- [Architecture](#architecture)
+      - [Pros](#pros)
+      - [Cons](#cons)
+      - [Khi thiết kế hệ thống cần đánh giá các yêu tố sau, để tránh lãng phía thời gian công sức 😓](#khi-thiết-kế-hệ-thống-cần-đánh-giá-các-yêu-tố-sau-để-tránh-lãng-phía-thời-gian-công-sức-)
 - [Domain](#domain)
-- [Domain-Driven Hexagon](#domain-driven-hexagon)
-- [Architecture](#architecture) - [Pros](#pros) - [Cons](#cons)
+    - [Mô tả](#mô-tả)
+    - [Conceptual Model](#conceptual-model)
+- [Event Storming](#event-storming)
 - [Diagram](#diagram)
-- [OOP && SOLID](#oop)
+- [OOP \&\& SOLID](#oop--solid)
+    - [OOP](#oop)
+    - [Four main principle](#four-main-principle)
+    - [SOLID](#solid)
+      - [Single responsibility principle (srp)](#single-responsibility-principle-srp)
+      - [Liskov Substitution Principle](#liskov-substitution-principle)
+      - [Interface segregation principle](#interface-segregation-principle)
+      - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+    - [Tip](#tip)
+      - [Refactor method 400 dòng](#refactor-method-400-dòng)
+      - [Command bus](#command-bus)
+    - [Coding chill](#coding-chill)
+- [Decoupling (Tách rời) vs. Loose Coupling (Liên kết lỏng lẻo)](#decoupling-tách-rời-vs-loose-coupling-liên-kết-lỏng-lẻo)
+  - [Loose Coupling (Liên kết lỏng lẻo)](#loose-coupling-liên-kết-lỏng-lẻo)
+  - [Decoupling (Tách rời)](#decoupling-tách-rời)
 - [Modules](#modules)
 - [Application Core](#application-core)
 - [Application layer](#application-layer)
@@ -1043,6 +1065,14 @@ Read more about Value Objects:
 - [Value Object pattern](https://badia-kharroubi.gitbooks.io/microservices-architecture/content/patterns/tactical-patterns/value-object-pattern.html)
 
 ## Domain Invariants
+
+- Là những rule mà chúng ta nên bảo vệ bên business.
+- Logic nghiệp vụ và logic của technical
+  + Domain logic do domain expect định nghĩa ra
+  + Technical logic là do team tech định nghĩa ra.
+- Tại sao lại tách ra query và command
+  + Command phải đi qua hành vi của entity để bảo vệ Domain Invariants
+  + Tại sao query không cần entity: Vì entity có thể rất bự nếu lấy hết ra không tốt về perfomance (nhu cầu truy xuất dữ liệu khác nhau, có thể tuỳ biến để tăng tốc query)
 
 Domain [invariants](<https://en.wikipedia.org/wiki/Invariant_(mathematics)#Invariants_in_computer_science>) are the policies and conditions that are always met for the Domain in particular context. Invariants determine what is possible or what is prohibited in the context.
 
