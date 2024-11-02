@@ -91,7 +91,7 @@ coun(*) = count(1) > count(primary key column) > count(column)
 
 ### Arrays
 
-![Big O](./assets/arrs/1.png)
+![Big O](../assets/arrs/1.png)
 
 Array là một cấu trúc dữ liệu liền kề có kích thước cố định. Bản thân mảng là một con trỏ tới một địa chỉ bộ nhớ `x + (sizeof(t) * i)`:
 
@@ -101,7 +101,7 @@ Array là một cấu trúc dữ liệu liền kề có kích thước cố đ�
 
 **Ví dụ**
 
-![Big O](./assets/arrs/2.png)
+![Big O](../assets/arrs/2.png)
 
 Địa chỉ bộ nhớ liên tiếp sau đó có một ý nghĩa thú vị: máy tính của bạn phải dịch chuyển các phần tử khi chèn hoặc xóa một mục. Đây là lý do tại sao việc thay đổi một mảng trong hầu hết các trường hợp là một thao tác O(n).
 
@@ -117,9 +117,9 @@ Vì mảng có hiệu suất kém khi chèn và xoá các phần tử, nên `lin
 
 `Linked List` là tập hợp logic các phần tử ngẫu nhiên trong bộ nhớ. Chúng chỉ được kết nối thông qua con trỏ. Mõi mục có một con trỏ tới mục tiếp theo. Có một biến thể khác được gọi là `doubly linked list`.
 
-![Big O](./assets/arrs/3.png)
+![Big O](../assets/arrs/3.png)
 
-![Big O](./assets/arrs/4.png)
+![Big O](../assets/arrs/4.png)
 
 > However, searching is as slow as it was with arrays. It's still O(n).
 > Martin Joo - Performance with Laravel
@@ -133,17 +133,17 @@ Là tree mà số con của một node không quá 2 node.
 - Nếu bỏ hết node ở độ cao h, ta thu được 1 cây hoàn chỉnh ( được gọi là cây nhị phân gần hoàn chỉnh)
 - Tất cả các node con bên trái đề nhỏ hơn node hiện tại và tất cả các node con bên phải đều lớn hơn node hiện tại. (được gọi là Binary Search Tree - BST) - có yếu tố sắp xếp, tạo thuận lợi cho bài toán tìm kiếm.
 
-![Big O](./assets/arrs/5.png)
+![Big O](../assets/arrs/5.png)
 
 ### Single-level indexing
 
-![Index](./assets/arrs/6.png)
+![Index](../assets/arrs/6.png)
 
 ### Multi-level indexing
 
-![Index](./assets/arrs/7.png)
+![Index](../assets/arrs/7.png)
 
-![Index](./assets/arrs/8.png)
+![Index](../assets/arrs/8.png)
 
 ### Index access types
 
@@ -155,11 +155,11 @@ from users
 where id = 1
 ```
 
-![Index](./assets/arrs/9.png)
+![Index](../assets/arrs/9.png)
 
 ### range
 
-![Index](./assets/arrs/10.png)
+![Index](../assets/arrs/10.png)
 
 ### index
 
@@ -169,7 +169,7 @@ from users
 where id != 1
 ```
 
-![Index](./assets/arrs/11.png)
+![Index](../assets/arrs/11.png)
 
 It's an index type. In this case, MySQL cannot identify a range or a single row that needs to be returned.
 The best it can do is to scan the entire index. This sounds good, or at least better than a full table scan but
@@ -191,7 +191,7 @@ from users
 where first_name = "John"
 ```
 
-![Big O](./assets/arrs/12.png)
+![Big O](../assets/arrs/12.png)
 
 ## Select \*
 
@@ -201,7 +201,7 @@ where first_name = "John"
 
 ## Stored Procedure vs Function
 
-![DB](./assets/arrs/13.png)
+![DB](../assets/arrs/13.png)
 
 ## Char vs Varchar
 
