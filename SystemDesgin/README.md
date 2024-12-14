@@ -56,6 +56,14 @@ System Design Interview != System Desgin in Reality
   - When you have multiple solutions but it is hard to choose a solution.
 - What factor affect to the final decision ?
   - The order of non-functional requirements.
+  
+## Design Mindset
+
+> Principle 3: Trade-off
+- Be fully aware of limitations of each solution
+  
+Ability to answer “Why?”
+
 
 ## How to Evaluate a Design ?
 
